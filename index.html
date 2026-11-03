@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вхід через Hikka</title>
+<style>
+  body{font-family:system-ui,sans-serif;text-align:center;margin:0;padding:20vh 16px 0;background:#111;color:#eee}
+  a.btn{display:inline-block;margin-top:16px;padding:12px 22px;border-radius:10px;background:#2aabee;color:#fff;text-decoration:none;font-weight:600}
+  small{display:block;margin-top:20px;color:#999}
+</style>
+</head>
+<body>
+<h2 id="msg">Повертаю в Telegram…</h2>
+<a class="btn" id="open" href="#" hidden>Відкрити Telegram</a>
+<small id="hint" hidden></small>
+<script>
+  const BOT = "hikkaio_bot";
+  const ref = (new URLSearchParams(location.search).get("reference") || "").replace(/[^\w-]/g, "");
+  const msg = document.getElementById("msg"), btn = document.getElementById("open"), hint = document.getElementById("hint");
+  if (!ref) {
+    msg.textContent = "Не знайдено reference у посиланні. Спробуй увійти ще раз через бота.";
+  } else {
+    const url = "https://t.me/" + BOT + "?start=" + ref;
+    btn.href = url; btn.hidden = false;
+    hint.hidden = false;
+    hint.textContent = "Якщо Telegram не відкрився — натисни кнопку.";
+    location.replace(url);
+  }
+</script>
+</body>
+</html>
